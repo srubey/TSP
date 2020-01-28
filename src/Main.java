@@ -1,34 +1,24 @@
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
         NearNbr tsp1 = new NearNbr();
         TwoOptSwap tsp2 = new TwoOptSwap();
 
-        graph.loadVerts();
-        graph.createEdges();
-        graph.printAdjList();
+        //create graph
+        graph.loadVerts();  //load vertices from external data file
+        graph.createEdges();  //create edges from those vertices
+        graph.printAdjList();  //newly created adjacency list
 
+        //create route using Nearest Neighbor
         Route r1 = tsp1.nrstNbr(graph.getVertices());
         System.out.print("\nRoute using Nearest Neighbor:");
-        printRoute(r1);
+        r1.printRoute();
         System.out.print("\nTotal Weight: " + r1.calcDist() + "\n");
 
+        //optimize using 2-Opt-Swaps
         Route r2 = tsp2.twoOptSwp(r1);
         System.out.print("\nRoute using Two Opt Swap:");
-        printRoute(r2);
+        r2.printRoute();
         System.out.print("\nTotal Weight: " + r2.calcDist() + "\n");
-    }
-
-    protected static void printRoute(Route route){
-        Vertex start = route.vertices.get(0);
-        System.out.print("\n" + start.name + " --> ");
-
-        for (int i = 1; i < route.vertices.size(); ++i) {
-            System.out.print(route.vertices.get(i).name);
-            if(route.vertices.get(i) != start)
-                System.out.print(" --> ");
-        }
     }
 }

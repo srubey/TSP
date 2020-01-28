@@ -17,4 +17,15 @@ public class Route {
 
         return totalDist;
     }
+
+    protected void printRoute(){
+        Vertex start = vertices.get(0);
+        System.out.print("\n" + start.name + " --> ");
+
+        for (int i = 1; i < vertices.size(); ++i) {
+            System.out.print(vertices.get(i).name);
+            if(vertices.get(i) != start)
+                System.out.print(" --> ");
+        }
+    }
 }

@@ -2,13 +2,9 @@ import java.util.Iterator;
 import java.util.*;
 
 public class NearNbr {
-//    protected List<Vertex> result;
-//    protected long total;
     protected Route route;
 
     protected NearNbr(){
-//        result = new ArrayList<Vertex>();
-//        total = 0;
         route = new Route();
     }
 
@@ -42,7 +38,6 @@ public class NearNbr {
             current.visited = true;
             route.vertices.add(current);
             route.edges.add(shortEdge);
-//            route.totalDist += wt;
 
             ++count;
         }
@@ -52,10 +47,8 @@ public class NearNbr {
         current = start;
         route.vertices.add(current);
         for(Edge e:current.edges){
-            if(e.to == temp) {
+            if(e.to == temp)
                 route.edges.add(e);
-//                route.totalDist += e.weight;
-            }
         }
 
         return route;

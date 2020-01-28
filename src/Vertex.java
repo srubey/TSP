@@ -15,14 +15,6 @@ public class Vertex {
         this.edges = new ArrayList();
     }
 
-    protected boolean addEdge(Edge e){
-        return edges.add(e);
-    }
-
-    protected String getName(){
-        return name;
-    }
-
     protected void print(){
         System.out.print(name + " " + xcoord + " " + ycoord + ": [");
 

@@ -15,8 +15,6 @@ public class Graph {
     }
 
     protected void loadVerts(){
-        int weight;
-
         try
         {
             readFile = new Scanner(new File("KroA150.txt"));
@@ -44,6 +42,8 @@ public class Graph {
         readFile.close();
     }
 
+    //create path from each vertex to each other vertex
+    //edge weight = distance between Euclidian 2D coordinates
     protected void createEdges(){
         for(int i = 0; i < vertices.size(); ++i){
             for(int j = 0; j < vertices.size(); ++j){

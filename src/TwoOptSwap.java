@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class TwoOptSwap {
     protected Route twoOptSwp(Route oldRoute){
         long bestDist = oldRoute.calcDist();
@@ -25,6 +23,7 @@ public class TwoOptSwap {
         Route newRoute = new Route();
         int temp = j;
 
+        //create new vertex list
         for(int k = 0; k < i; ++k)
             newRoute.vertices.add(oldRoute.vertices.get(k));
 
@@ -36,7 +35,7 @@ public class TwoOptSwap {
         for(int m = j+1; m < oldRoute.vertices.size(); ++m)
             newRoute.vertices.add(oldRoute.vertices.get(m));
 
-        //create edgelist
+        //create new edgelist
         for(int n = 1; n < newRoute.vertices.size(); ++n){
             for(Edge e:newRoute.vertices.get(n).edges) {
                 if(e.to == newRoute.vertices.get(n - 1))
