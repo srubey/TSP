@@ -10,24 +10,24 @@ public class Main {
         graph.createEdges();
         graph.printAdjList();
 
-        List<Vertex> route = tsp1.nrstNbr(graph.getVertices());
+        Route r1 = tsp1.nrstNbr(graph.getVertices());
         System.out.print("\nRoute using Nearest Neighbor:");
-        printRoute(route);
-        System.out.print("\nTotal Weight: " + tsp1.total + "\n");
+        printRoute(r1);
+        System.out.print("\nTotal Weight: " + r1.calcDist() + "\n");
 
-        List<Vertex> newRt = tsp2.twoOptSwp(route, tsp1.total);
+        Route r2 = tsp2.twoOptSwp(r1);
         System.out.print("\nRoute using Two Opt Swap:");
-        printRoute(newRt);
-        System.out.print("\nTotal Weight: " + tsp2.calcTotal(newRt));
+        printRoute(r2);
+        System.out.print("\nTotal Weight: " + r2.calcDist() + "\n");
     }
 
-    protected static void printRoute(List<Vertex> route){
-        Vertex start = route.get(0);  
+    protected static void printRoute(Route route){
+        Vertex start = route.vertices.get(0);
         System.out.print("\n" + start.name + " --> ");
 
-        for (int i = 1; i < route.size(); ++i) {
-            System.out.print(route.get(i).name);
-            if(route.get(i) != start)
+        for (int i = 1; i < route.vertices.size(); ++i) {
+            System.out.print(route.vertices.get(i).name);
+            if(route.vertices.get(i) != start)
                 System.out.print(" --> ");
         }
     }

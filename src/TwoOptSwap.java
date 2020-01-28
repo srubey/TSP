@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class TwoOptSwap {
-    protected List<Vertex> twoOptSwp(List<Vertex> oldRoute, long priorBest){
-        long bestDist = priorBest;
+    protected Route twoOptSwp(Route oldRoute){
+        long bestDist = oldRoute.calcDist();
         long newDist;
-        List<Vertex> newRoute;
-        List<Vertex> curRoute = oldRoute;
+        Route newRoute;
+        Route curRoute = oldRoute;
 
-        for(int i = 1; i < oldRoute.size()-2; ++i){
-            for(int j = i+1; j < oldRoute.size()-1; ++j){
+        for(int i = 1; i < oldRoute.vertices.size()-2; ++i){
+            for(int j = i+1; j < oldRoute.vertices.size()-1; ++j){
                 newRoute = twoOptSwpHlp(curRoute, i, j);
                 newDist = calcTotal(newRoute);
 
@@ -21,36 +21,33 @@ public class TwoOptSwap {
         return curRoute;
     }
 
-    protected List<Vertex> twoOptSwpHlp(List<Vertex> oldRoute, int i, int j){
-        List<Vertex> route = new ArrayList<Vertex>();
+    protected Route twoOptSwpHlp(Route oldRoute, int i, int j){
+        Route newRoute = new Route();
         int temp = j;
 
-        for(int k = 0; k < i; ++k) {
-            route.add(oldRoute.get(k));
-        }
+        for(int k = 0; k < i; ++k)
+            newRoute.vertices.add(oldRoute.vertices.get(k));
 
         for(int l = i; l <= j; ++l){
-            route.add(oldRoute.get(temp));
+            newRoute.vertices.add(oldRoute.vertices.get(temp));
             --temp;
         }
 
-        for(int m = j+1; m < oldRoute.size(); ++m) {
-            route.add(oldRoute.get(m));
-        }
+        for(int m = j+1; m < oldRoute.vertices.size(); ++m)
+            newRoute.vertices.add(oldRoute.vertices.get(m));
 
-        return route;
-    }
-
-    protected long calcTotal(List<Vertex> newRoute){
-        long total = 0;
-
-        for(int i = 1; i < newRoute.size(); ++i) {
-            for (Edge e : newRoute.get(i).edges){
-                if(e.to == newRoute.get(i-1))
-                    total += e.weight;
+        //create edgelist
+        for(int n = 1; n < newRoute.vertices.size(); ++n){
+            for(Edge e:newRoute.vertices.get(n).edges) {
+                if(e.to == newRoute.vertices.get(n - 1))
+                    newRoute.edges.add(e);
             }
         }
 
-        return total;
+        return newRoute;
+    }
+
+    protected long calcTotal(Route route){
+        return route.calcDist();
     }
 }
