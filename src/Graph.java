@@ -19,7 +19,7 @@ public class Graph {
 
         try
         {
-            readFile = new Scanner(new File("Berlin52.txt"));
+            readFile = new Scanner(new File("KroA150.txt"));
         }
 
         catch(FileNotFoundException ex)
