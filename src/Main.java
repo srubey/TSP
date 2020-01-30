@@ -20,5 +20,9 @@ public class Main {
         System.out.print("\nRoute using Two Opt Swap:");
         r2.printRoute();
         System.out.print("\nTotal Weight: " + r2.calcDist() + "\n");
+
+        System.out.print("Size: " + r2.edges.size() + " \n");
+        for(int i = 0; i < r2.edges.size(); ++i)
+            System.out.print(r2.edges.get(i).to.name + " ");
     }
 }

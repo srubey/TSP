@@ -32,13 +32,14 @@ public class TwoOptSwap {
             --temp;
         }
 
-        for(int m = j+1; m < oldRoute.vertices.size(); ++m)
+        for(int m = j+1; m < oldRoute.vertices.size(); ++m) {
             newRoute.vertices.add(oldRoute.vertices.get(m));
+        }
 
         //create new edgelist
-        for(int n = 1; n < newRoute.vertices.size(); ++n){
-            for(Edge e:newRoute.vertices.get(n).edges) {
-                if(e.to == newRoute.vertices.get(n - 1))
+        for(int n = 0; n < newRoute.vertices.size(); ++n){
+            for(Edge e:newRoute.vertices.get(n).edges){
+                if(n != newRoute.vertices.size()-1 && e.to == newRoute.vertices.get(n+1))
                     newRoute.edges.add(e);
             }
         }

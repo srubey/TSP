@@ -43,11 +43,9 @@ public class NearNbr {
         }
 
         //return to the start and add weight
-        Vertex temp = current;
-        current = start;
-        route.vertices.add(current);
+        route.vertices.add(start);
         for(Edge e:current.edges){
-            if(e.to == temp)
+            if(e.to == start)
                 route.edges.add(e);
         }
 

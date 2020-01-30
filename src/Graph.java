@@ -17,7 +17,7 @@ public class Graph {
     protected void loadVerts(){
         try
         {
-            readFile = new Scanner(new File("KroA150.txt"));
+            readFile = new Scanner(new File("Berlin52.txt"));
         }
 
         catch(FileNotFoundException ex)
