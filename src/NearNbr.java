@@ -1,8 +1,11 @@
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.*;
 
 public class NearNbr {
     protected Route route;
+    protected long startTime;
+    protected long endTime;
 
     protected NearNbr(){
         route = new Route();
@@ -16,6 +19,8 @@ public class NearNbr {
         Edge shortEdge;
         long wt;  //weight to compare
         int count = 1;
+
+        startTime = System.currentTimeMillis();
 
         current.visited = true;
         route.vertices.add(current);
@@ -49,6 +54,12 @@ public class NearNbr {
                 route.edges.add(e);
         }
 
+        endTime = System.currentTimeMillis();
+
         return route;
+    }
+
+    protected float getTime(){
+        return (endTime - startTime)/1000f;
     }
 }

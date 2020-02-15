@@ -1,28 +1,35 @@
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-        NearNbr tsp1 = new NearNbr();
-        TwoOptSwap tsp2 = new TwoOptSwap();
+        RandWalk tsp1 = new RandWalk();
+        NearNbr tsp2 = new NearNbr();
+        TwoOptSwap tsp3 = new TwoOptSwap();
 
         //create graph
         graph.loadVerts();  //load vertices from external data file
         graph.createEdges();  //create edges from those vertices
         graph.printAdjList();  //newly created adjacency list
 
-        //create route using Nearest Neighbor
-        Route r1 = tsp1.nrstNbr(graph.getVertices());
-        System.out.print("\nRoute using Nearest Neighbor:");
+        //create route using Random Walk
+        Route r1 = tsp1.randWalkWrapper(graph.getVertices());
+        System.out.print("\nRoute using Random Walk:");
         r1.printRoute();
         System.out.print("\nTotal Weight: " + r1.calcDist() + "\n");
 
-        //optimize using 2-Opt-Swaps
-        Route r2 = tsp2.twoOptSwp(r1);
-        System.out.print("\nRoute using Two Opt Swap:");
+        //create route using Nearest Neighbor
+        Route r2 = tsp2.nrstNbr(graph.getVertices());
+        System.out.print("\nRoute using Nearest Neighbor:");
         r2.printRoute();
         System.out.print("\nTotal Weight: " + r2.calcDist() + "\n");
+        String nnTime = String.format("%.3f", tsp2.getTime());
+        System.out.print("Total Time: " + nnTime + " sec\n");
 
-        System.out.print("Size: " + r2.edges.size() + " \n");
-        for(int i = 0; i < r2.edges.size(); ++i)
-            System.out.print(r2.edges.get(i).to.name + " ");
+        //optimize using 2-Opt-Swaps
+        Route r3 = tsp3.twoOptSwp(r2);
+        System.out.print("\nRoute using Two Opt Swap:");
+        r3.printRoute();
+        System.out.print("\nTotal Weight: " + r3.calcDist() + "\n");
+        String tosTime = String.format("%.3f", tsp3.getTime());
+        System.out.print("Total Time: " + tosTime + " sec\n");
     }
 }
