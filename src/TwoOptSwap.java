@@ -5,17 +5,34 @@ public class TwoOptSwap {
     protected long startTime;
     protected long endTime;
 
+/*    protected Route twoOptSwpDriver(Route oldRoute){
+        Route bestRoute = oldRoute;
+        long bestDist = oldRoute.calcDist();
+
+        for(int i = 0; i < 20; ++i){
+            int curRoute =
+        }
+    }  */
+
     protected Route twoOptSwp(Route oldRoute){
         long bestDist = oldRoute.calcDist();
         long newDist;
         Route newRoute;
         Route curRoute = oldRoute;
+        Random random = new Random();
 
         startTime = System.currentTimeMillis();
 
         for(int i = 1; i < oldRoute.vertices.size()-2; ++i){
 //            long startTest = System.currentTimeMillis();  //for debugging purposes
             for(int j = i+1; j < oldRoute.vertices.size()-1; ++j){
+                //small possibility of a random swap
+                int randPos = random.nextInt(11);
+                if(randPos % 10 == 0) {
+                    i = random.nextInt(oldRoute.vertices.size());
+                    j = random.nextInt(oldRoute.vertices.size());
+                }
+
                 newRoute = twoOptSwpHlp(curRoute, i, j);
                 newDist = calcTotal(newRoute);
 
@@ -41,7 +58,6 @@ public class TwoOptSwap {
 
     protected Route twoOptSwpHlp(Route oldRoute, int i, int j){
         Route newRoute = new Route();
-        Random random = new Random();
         int temp = j;
 
         //create new vertex list
