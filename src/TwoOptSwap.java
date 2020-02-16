@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.Collections;
+
 public class TwoOptSwap {
     protected long startTime;
     protected long endTime;
@@ -38,28 +41,29 @@ public class TwoOptSwap {
 
     protected Route twoOptSwpHlp(Route oldRoute, int i, int j){
         Route newRoute = new Route();
+        Random random = new Random();
         int temp = j;
 
         //create new vertex list
-        for(int k = 0; k < i; ++k)
+        for (int k = 0; k < i; ++k)
             newRoute.vertices.add(oldRoute.vertices.get(k));
 
-        for(int l = i; l <= j; ++l){
+        for (int l = i; l <= j; ++l) {
             newRoute.vertices.add(oldRoute.vertices.get(temp));
             --temp;
         }
 
-        for(int m = j+1; m < oldRoute.vertices.size(); ++m) {
+        for (int m = j + 1; m < oldRoute.vertices.size(); ++m) {
             newRoute.vertices.add(oldRoute.vertices.get(m));
         }
 
         //for debugging purposes -- time to create edgelist is trivial (< 1 ms)
-//        long startTest = System.currentTimeMillis();
+//      long startTest = System.currentTimeMillis();
 
         //create new edgelist
-        for(int n = 0; n < newRoute.vertices.size(); ++n){
-            for(Edge e:newRoute.vertices.get(n).edges){
-                if(n != newRoute.vertices.size()-1 && e.to == newRoute.vertices.get(n+1))
+        for (int n = 0; n < newRoute.vertices.size(); ++n) {
+            for (Edge e : newRoute.vertices.get(n).edges) {
+                if (n != newRoute.vertices.size() - 1 && e.to == newRoute.vertices.get(n + 1))
                     newRoute.edges.add(e);
             }
         }
@@ -71,8 +75,6 @@ public class TwoOptSwap {
 
         return newRoute;
     }
-
-
 
     protected long calcTotal(Route route){
         return route.calcDist();
