@@ -1,26 +1,38 @@
-import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.*;
 
 public class NearNbr {
-    protected Route route;
-    protected long startTime;
-    protected long endTime;
 
-    protected NearNbr(){
-        route = new Route();
+    //find best possible route by starting from each vertex
+    protected Route nrstNbrDriver(List<Vertex> vertices){
+        Route bestRoute = null;
+        long bestDist = 999999999;
+
+        for(int i = 0; i < vertices.size(); ++i){
+            Vertex v = vertices.get(i);
+            Route curRoute = nrstNbr(vertices, v);
+            long curDist = curRoute.calcDist();
+            if(curDist < bestDist){
+                bestDist = curDist;
+                bestRoute = curRoute;
+            }
+        }
+
+        return bestRoute;
     }
 
-    protected Route nrstNbr(List<Vertex> vertices){
-        Iterator<Vertex> itr = vertices.iterator();
-        Vertex start = itr.next();  //pick a starting element
+    //find a route by greedily searching for edges of lowest weight
+    protected Route nrstNbr(List<Vertex> vertices, Vertex v){
+        Route route = new Route();
+        Vertex start = v;
         Vertex current = start;
         Vertex toVisit;  //vertex to visit
         Edge shortEdge;
         long wt;  //weight to compare
         int count = 1;
 
-        startTime = System.currentTimeMillis();
+        //reset all vertices.visited to false
+        for(int i = 0; i < vertices.size(); ++i)
+            vertices.get(i).visited = false;
 
         current.visited = true;
         route.vertices.add(current);
@@ -47,19 +59,13 @@ public class NearNbr {
             ++count;
         }
 
-        //return to the start and add weight
+        //return to the start and add the appropriate weight
         route.vertices.add(start);
         for(Edge e:current.edges){
             if(e.to == start)
                 route.edges.add(e);
         }
 
-        endTime = System.currentTimeMillis();
-
         return route;
-    }
-
-    protected float getTime(){
-        return (endTime - startTime)/1000f;
     }
 }

@@ -1,35 +1,26 @@
 public class Main {
     public static void main(String[] args) {
         Graph graph = new Graph();
-        RandWalk tsp1 = new RandWalk();
-        NearNbr tsp2 = new NearNbr();
-        TwoOptSwap tsp3 = new TwoOptSwap();
+        NearNbr tsp1 = new NearNbr();
+        TwoOptSwap tsp2 = new TwoOptSwap();
 
         //create graph
         graph.loadVerts();  //load vertices from external data file
         graph.createEdges();  //create edges from those vertices
-        graph.printAdjList();  //newly created adjacency list
+//        graph.printAdjList();  //newly created adjacency list -- for debugging
 
-        //create route using Random Walk
-        Route r1 = tsp1.randWalkWrapper(graph.getVertices());
-        System.out.print("\nRoute using Random Walk:");
+        //create route using Nearest Neighbor
+        Route r1 = tsp1.nrstNbrDriver(graph.getVertices());
+        System.out.print("\nRoute using Nearest Neighbor:");
         r1.printRoute();
         System.out.print("\nTotal Weight: " + r1.calcDist() + "\n");
 
-        //create route using Nearest Neighbor
-        Route r2 = tsp2.nrstNbr(graph.getVertices());
-        System.out.print("\nRoute using Nearest Neighbor:");
+        //optimize using 2-Opt-Swaps
+        Route r2 = tsp2.twoOptSwpDriver(r1);
+        System.out.print("\nRoute using Two Opt Swap:");
         r2.printRoute();
         System.out.print("\nTotal Weight: " + r2.calcDist() + "\n");
-        String nnTime = String.format("%.3f", tsp2.getTime());
-        System.out.print("Total Time: " + nnTime + " sec\n");
 
-        //optimize using 2-Opt-Swaps
-        Route r3 = tsp3.twoOptSwp(r2);
-        System.out.print("\nRoute using Two Opt Swap:");
-        r3.printRoute();
-        System.out.print("\nTotal Weight: " + r3.calcDist() + "\n");
-        String tosTime = String.format("%.3f", tsp3.getTime());
-        System.out.print("Total Time: " + tosTime + " sec\n");
+        //Random Swap can be enabled in TwoOptSwap.java
     }
 }

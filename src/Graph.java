@@ -17,7 +17,7 @@ public class Graph {
     protected void loadVerts(){
         try
         {
-            readFile = new Scanner(new File("Berlin52.txt"));
+            readFile = new Scanner(new File("Data/Berlin52.txt"));
         }
 
         catch(FileNotFoundException ex)
@@ -59,6 +59,7 @@ public class Graph {
         }
     }
 
+    //calculate distance between Euclidean 2D coordinates (i.e. edge weight)
     protected long calcDist(float x1, float y1, float x2, float y2){
         double xTotal = Math.pow((x2 - x1), 2);
         double yTotal = Math.pow((y2 - y1), 2);
@@ -68,6 +69,7 @@ public class Graph {
         return Math.round(result);
     }
 
+    //print the adjacency list
     protected void printAdjList(){
         for(Vertex v:vertices){
             v.print();

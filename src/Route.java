@@ -9,6 +9,7 @@ public class Route {
         edges = new ArrayList<Edge>();
     }
 
+    //calculate the total weight of a Route
     protected long calcDist(){
         long totalDist = 0;
 
