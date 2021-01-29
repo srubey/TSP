@@ -4,10 +4,7 @@ public class Main {
         NearNbr tsp1 = new NearNbr();
         TwoOptSwap tsp2 = new TwoOptSwap();
 
-        //create graph
-        graph.loadVerts();  //load vertices from external data file
-        graph.createEdges();  //create edges from those vertices
-//        graph.printAdjList();  //newly created adjacency list -- for debugging
+        graph.loadGraph();
 
         //create route using Nearest Neighbor
         Route r1 = tsp1.nrstNbrDriver(graph.getVertices());
@@ -23,4 +20,6 @@ public class Main {
 
         //Random Swap can be enabled in TwoOptSwap.java
     }
+
+    //TODO: read CL args
 }
